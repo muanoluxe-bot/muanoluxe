@@ -1,0 +1,1 @@
+{"indexes":[{"collectionGroup":"orders","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"expiresAt","order":"ASCENDING"}]}],"fieldOverrides":[{"collectionGroup":"rateLimits","fieldPath":"expiresAt","ttl":true,"indexes":[]}]}

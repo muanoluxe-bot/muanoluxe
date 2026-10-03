@@ -1,0 +1,6 @@
+import { googleApi } from './firebase-client.mjs';
+import { initialProducts, defaultSettings } from '../src/catalog.js';
+const base='https://firestore.googleapis.com/v1/projects/muanoluxe/databases/(default)/documents';
+const encode=v=>v===null?{nullValue:null}:typeof v==='boolean'?{booleanValue:v}:typeof v==='number'?{integerValue:String(v)}:typeof v==='string'?{stringValue:v}:Array.isArray(v)?{arrayValue:{values:v.map(encode)}}:{mapValue:{fields:Object.fromEntries(Object.entries(v).map(([k,v])=>[k,encode(v)]))}};
+for(const product of initialProducts){try{await googleApi(`${base}/products/${product.id}`);console.log('Preserved product:',product.id);}catch(e){if(e.status!==404)throw e;await googleApi(`${base}/products?documentId=${product.id}`,'POST',{fields:encode({...product,active:false,revision:1,sample:true}).mapValue.fields});console.log('Imported draft:',product.id);}}
+try{await googleApi(`${base}/settings/store`);console.log('Existing settings preserved.');}catch(e){if(e.status!==404)throw e;await googleApi(`${base}/settings?documentId=store`,'POST',{fields:encode({...defaultSettings,supportEmail:'muanoluxe@gmail.com',published:false}).mapValue.fields});console.log('Store settings created with checkout disabled.');}

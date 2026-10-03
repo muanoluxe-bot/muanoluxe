@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.env*
+!.env.example
+functions/.secret.local
+*API.txt
+firebase configure.txt
+*-debug.log
+.firebase/
+admin_windows/build/
+admin_windows/.dart_tool/
+admin_windows/windows/flutter/ephemeral/
+playwright-report/
+test-results/
+.npm-cache/
+artifacts/
+*secret*.txt
+releases/
+admin_windows/assets/site/
